@@ -1,0 +1,6 @@
+include ':app'
+include ':moduleevent'
+include ':interfaces'
+include ':compiler'
+include ':module1'
+include ':export:module1_export'
