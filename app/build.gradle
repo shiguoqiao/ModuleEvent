@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+apply from: '../deps.gradle'
+android {
+    compileSdkVersion build_versions.compile_sdk_version
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "com.tt52.host"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation (deps.support.app_compat){
+//        exclude group: 'androidx.lifecycle'
+//    }
+    implementation (deps.support.app_compat)
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    //For Lifecycles, LiveData, and ViewModel
+    implementation deps.lifecycle.extensions
+//    implementation deps.lifecycle.compiler
+
+    //moduleevent
+    implementation project(':moduleevent')
+
+    //test
+    testImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
+
+    implementation project(':export:module1_export')
+}
